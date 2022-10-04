@@ -17,10 +17,10 @@ function Person(name, job, age) {
 };
 
 // test
-const christina = new Person('Christina', 'software engineer', 25);
+let christina = new Person('Christina', 'software engineer', 25);
 console.log( christina ); // works
-console.log( christina.exercise() ); // works
-console.log( christina.fetchJob() ); // 'Christina is a software engineer'
+christina.exercise(); // works
+christina.fetchJob(); // 'Christina is a software engineer'
 
 
 
@@ -29,7 +29,13 @@ console.log( christina.fetchJob() ); // 'Christina is a software engineer'
     // 6. Give the Programmer an 'offerNewTask' method that console logs one thing if the programmer is busy and another if the programmer is not, e.g. should initially log out "Mark can't accept any new tasks right now." and "Mark would love to take on a new responsibility." if the programmer is not busy.
     // 7. Give the Programmer 'learnLanguage' and 'listLanguages' methods that add new languages to the programmer and list off all languages the programmer knows.
 
-function Programmer(languages) { // how to inherit members from Person
+// Programmer.prototype = Person;
+
+function Programmer(name, job, age, languages) { // how to inherit members from Person
+    // this.name = Person.name,
+    // this.job = Person.job,
+    // this.age = Person.age,
+    Person.call(name, job, age);
     this.languages = languages;
     this.busy = true;
     this.completeTask = function(){
@@ -46,12 +52,17 @@ function Programmer(languages) { // how to inherit members from Person
         };
     };
     this.learnLanguage = function(){
-        // add new languages to the programmer
+        let newLanguages = prompt(`What new programming languages have you learned?`);
+        this.languages = newLanguages;
+        return this.languages;
     };
     this.listLanguages = function(){
-        // list off all languages the programmer knows
+        console.log(this.languages);
     };
 };
+
+christina = new Programmer(['html', 'css', 'javascript']);
+console.log(christina);
 
 
 
